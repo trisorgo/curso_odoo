@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wizard_reserved_places_form_view">
+            <field name="name">wizard.reserved.places.form</field>
+            <field name="model">openacademy.wizard_reserve</field>
+            <field name="arch" type="xml">
+                <form string="Add Reserved Attendees">
+                    ¿Desea reservar plaza en la sesión?
+                    <footer>
+                        <button name="reserve_place" type="object" string="SI" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="NO"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="reserve_session_wizard"
+             name="Add Reserved Attendees"
+             res_model="openacademy.wizard_reserve"
+             view_mode="form"
+             target="new"/>
+
+    </data>
+</openerp>
