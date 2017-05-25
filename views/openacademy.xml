@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <record model="ir.ui.view" id="wizard_reserved_places_form_view">
-            <field name="name">wizard.reserved.places.form</field>
-            <field name="model">openacademy.wizard_reserve</field>
-            <field name="arch" type="xml">
-                <form string="Add Reserved Attendees">
-                    ¿Desea reservar plaza en la sesión?
-                    <footer>
-                        <button name="reserve_place" type="object" string="SI" class="oe_highlight"/>
-                        or
-                        <button special="cancel" string="NO"/>
-                    </footer>
-                </form>
+        <record model="ir.actions.server" id="openacademy_sessions.reserve_session">
+          <field name="name">Reserve Places Action</field>
+          <field name="model_id" ref="model_openacademy_session"/>
+          <field name="code">
+            action = self.reserve_session()
+          </field>
+        </record>   
+
+        <!-- action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "form",
+          "res_model": openacademy_sessions,
+          "res_id": model_openacademy_session,
+                } -->
+
+        <record model="ir.ui.view" id="session_reserve_form_view">
+          <field name="name">session.reserve.form.view</field>
+          <field name="model">openacademy.session</field>
+          <field name="inherit_id" ref="openacademy.session_form_view"/>
+          <field name="arch" type="xml">
+            <field name="attendee_ids" position="replace">
+              <notebook>
+                  <page string="Attendees">
+                      <field name="attendee_ids"/>
+                  </page>
+                  <page string="Reserved Attenddes">
+                      <field name="reserved_attendee_ids"/>
+                  </page>
+              </notebook>
             </field>
+          </field>
         </record>
-
-        <act_window id="reserve_session_wizard"
-             name="Add Reserved Attendees"
-             res_model="openacademy.wizard_reserve"
-             view_mode="form"
-             target="new"/>
-
     </data>
 </openerp>
